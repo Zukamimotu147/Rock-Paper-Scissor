@@ -3,14 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Rock Paper Scissor</title>
   </head>
   <body>
-    <header>
-      <h1>Rock Paper Scissor GAME</h1>
-      <h2>Will do UI SOON</h2>
-    </header>
-    <main></main>
-    <script src="script.js"></script>
+    <h1>ROCK PAPER SCISSOR</h1>
+    <section>
+      <div class="container">
+        <div class="result-field">
+          <div class="images">
+            <span class="user-result">
+              <img src="asset/rock.svg" alt="rock-hand" />
+            </span>
+            <span class="cpu-result">
+              <img src="asset/rock.svg" alt="rock-hand" />
+            </span>
+          </div>
+          <div class="score">
+            <p class="running-score">Player 0 - 0 CPU</p>
+            <p class="move-results js-move-results"></p>
+          </div>
+        </div>
+
+        <div class="options">
+          <div class="options-modal">
+            <button id="js-isplay" class="move-button js-rock-move">
+              <img src="asset/rock.svg" alt="rock-hand" />
+            </button>
+            <div class="pop-up">
+              <p>Rock</p>
+            </div>
+          </div>
+
+          <div class="options-modal">
+            <button class="move-button js-paper-move js-isplay">
+              <img src="asset/paper.svg" alt="paper-hand" />
+            </button>
+            <div class="pop-up">
+              <p>Paper</p>
+            </div>
+          </div>
+
+          <div class="options-modal">
+            <button class="move-button js-scissor-move js-isplay">
+              <img src="asset/scissor.svg" alt="scissor-hand" />
+            </button>
+            <div class="pop-up">
+              <p>Scissor</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="modal-container js-modal-container">
+        <div class="modal-content">
+          <p class="game-results js-game-results"></p>
+          <button class="try-again-btn js-try-again-btn">Try Again</button>
+        </div>
+        <div class="modal-options"></div>
+      </div>
+    </section>
+
+    <script src="script.js" defer></script>
   </body>
 </html>
