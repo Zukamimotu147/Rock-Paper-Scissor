@@ -1,12 +1,74 @@
+const gameContainer = document.querySelector('.container');
+const userResult = document.querySelector('.user-result img');
+const cpuResult = document.querySelector('.cpu-result img');
+const runningScore = document.querySelector('.running-score');
+const moveResult = document.querySelector('.js-move-results');
+const gameResult = document.querySelector('.js-game-results');
+const pickRock = document.querySelector('.js-rock-move');
+const pickPaper = document.querySelector('.js-paper-move');
+const pickScissor = document.querySelector('.js-scissor-move');
+const tryAgainBtn = document.querySelector('.js-try-again-btn');
+const modal = document.querySelector('.js-modal-container');
+const isPlay = document.querySelector('#js-isplay');
+
 let playerScore = 0;
 let computerScore = 0;
+let gameOver = false;
+updateScore();
 
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    let playMove = prompt('Pick a Move | Rock | Paper | Scissor');
-    let compMove = getComputerChoice();
-    playRound(playMove, compMove);
+pickRock.addEventListener('click', () => {
+  playGame('rock');
+  isPlay.disabled = true;
+});
+
+pickPaper.addEventListener('click', () => {
+  playGame('paper');
+});
+
+pickScissor.addEventListener('click', () => {
+  playGame('scissor');
+});
+
+tryAgainBtn.addEventListener('click', () => {
+  tryAgain();
+});
+
+function playGame(playerChoice) {
+  let computerMove = getComputerChoice();
+  gameContainer.classList.add('start');
+  moveResult.textContent = 'Wait...';
+  let time = setTimeout(() => {
+    gameContainer.classList.remove('start');
+    showHand(playerChoice, computerMove);
+    updateScore();
+    if (!gameOver) {
+      playRound(playerChoice, computerMove);
+      updateScore();
+    }
+
+    isWinner();
+  }, 2500);
+}
+
+function isWinner() {
+  if (playerScore == 5) {
+    gameOver = true;
+    gameResult.textContent = 'Player Wins!';
+    modal.style.display = 'block';
+  } else if (computerScore == 5) {
+    gameOver = true;
+    gameResult.textContent = 'Computer Wins!';
+    modal.style.display = 'block';
   }
+}
+
+function showHand(playerChoice, computerMove) {
+  userResult.src = `asset/${playerChoice}.svg`;
+  cpuResult.src = `asset/${computerMove}.svg`;
+}
+
+function updateScore() {
+  runningScore.textContent = `Player ${playerScore} - ${computerScore} Computer`;
 }
 
 function playRound(playerChoice, computerChoice) {
@@ -14,51 +76,43 @@ function playRound(playerChoice, computerChoice) {
   let cMove = computerChoice.toLowerCase();
 
   if (pMove === cMove) {
-    console.log('Its a Tie!');
+    moveResult.textContent = "It's a Tie!";
   } else if (pMove === 'rock' && cMove === 'scissor') {
-    console.log('You Win! Rock beats Scissor');
+    moveResult.textContent = 'You Win! Rock beats Scissor';
     playerScore += 1;
   } else if (pMove === 'paper' && cMove === 'rock') {
-    console.log('You Win! Paper beats Rock');
+    moveResult.textContent = 'You Win! Paper beats Rock';
     playerScore += 1;
   } else if (pMove === 'scissor' && cMove === 'paper') {
-    console.log('You Win! Scissor beats Paper');
+    moveResult.textContent = 'You Win! Scissor beats Paper';
     playerScore += 1;
   } else if (cMove === 'rock' && pMove === 'scissor') {
-    console.log('You Lose! Rock beats Scissor');
+    moveResult.textContent = 'You Lose! Rock beats Scissor';
     computerScore += 1;
   } else if (cMove === 'paper' && pMove === 'rock') {
-    console.log('You Lose! Paper beats Rock');
+    moveResult.textContent = 'You Lose! Paper beats Rock';
     computerScore += 1;
   } else if (cMove === 'scissor' && pMove === 'paper') {
-    console.log('You Lose! Scissor beats Paper');
+    moveResult.textContent = 'You Lose! Scissor beats Paper';
     computerScore += 1;
   }
 }
 
-function gameResults() {
-  if (playerScore === 5) {
-    console.log('Player Wins');
-  } else if (computerScore === 5) {
-    console.log('Computer Wins');
-  } else {
-    console.log('Its a TIE GAME');
-  }
+function tryAgain() {
+  location.reload();
+  modal.style.display = 'none';
 }
 
 function getComputerChoice() {
   const randomNumber = Math.random();
   let computerMove = '';
   if (randomNumber >= 0 && randomNumber < 1 / 3) {
-    computerMove = 'Rock';
+    computerMove = 'rock';
   } else if (randomNumber >= 1 / 3 && randomNumber < 2 / 3) {
-    computerMove = 'Paper';
+    computerMove = 'paper';
   } else if (randomNumber >= 2 / 3 && randomNumber < 1) {
-    computerMove = 'Scissor';
+    computerMove = 'scissor';
   }
 
   return computerMove;
 }
-
-playGame();
-gameResults();
