@@ -9,7 +9,7 @@ const pickPaper = document.querySelector('.js-paper-move');
 const pickScissor = document.querySelector('.js-scissor-move');
 const tryAgainBtn = document.querySelector('.js-try-again-btn');
 const modal = document.querySelector('.js-modal-container');
-const isPlay = document.querySelector('#js-isplay');
+const isPlaying = document.querySelector('#js-isplay');
 
 let playerScore = 0;
 let computerScore = 0;
@@ -18,7 +18,6 @@ updateScore();
 
 pickRock.addEventListener('click', () => {
   playGame('rock');
-  isPlay.disabled = true;
 });
 
 pickPaper.addEventListener('click', () => {
@@ -37,8 +36,10 @@ function playGame(playerChoice) {
   let computerMove = getComputerChoice();
   gameContainer.classList.add('start');
   moveResult.textContent = 'Wait...';
+  isPlaying.disabled = true;
   let time = setTimeout(() => {
     gameContainer.classList.remove('start');
+    isPlaying.disabled = false;
     showHand(playerChoice, computerMove);
     updateScore();
     if (!gameOver) {
