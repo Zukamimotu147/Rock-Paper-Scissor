@@ -35,7 +35,7 @@ tryAgainBtn.addEventListener('click', () => {
 function playGame(playerChoice) {
   let computerMove = getComputerChoice();
   gameContainer.classList.add('start');
-  moveResult.textContent = 'Wait...';
+  moveResult.textContent = 'Let Computer Cook...';
   isPlaying.disabled = true;
   let time = setTimeout(() => {
     gameContainer.classList.remove('start');
