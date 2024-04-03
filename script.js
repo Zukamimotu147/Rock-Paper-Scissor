@@ -36,6 +36,8 @@ function playGame(playerChoice) {
   let computerMove = getComputerChoice();
   gameContainer.classList.add('start');
   moveResult.textContent = 'Let Computer Cook...';
+  userResult.src = `asset/rock.svg`;
+  cpuResult.src = `asset/rock.svg`;
   isPlaying.disabled = true;
   let time = setTimeout(() => {
     gameContainer.classList.remove('start');
